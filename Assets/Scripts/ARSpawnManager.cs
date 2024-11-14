@@ -1,6 +1,7 @@
 using UnityEngine;
 using Vuforia;
 using System.Collections.Generic;
+using TMPro;
 
 public class ARSpawnManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class ARSpawnManager : MonoBehaviour
     public Transform topLeft, topRight, bottomLeft, bottomRight; // 4 köþe
     private List<GameObject> spawnedObjects = new List<GameObject>(); // Oluþturulan objeler için liste
     bool isFirstTime = true;
+    [SerializeField] public TextMeshProUGUI resultText;
+    
 
     private void Start()
     {

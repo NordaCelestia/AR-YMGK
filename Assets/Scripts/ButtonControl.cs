@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ButtonControl : MonoBehaviour
 {
     public int windmillID;  // Pinwheel ID
     [SerializeField] Material DifferentMaterial;  // Farklý materyal
     bool FirstTime = true;
+    [SerializeField] GameObject scrptObj;
+    ARSpawnManager arSpwn;
 
     private Transform pinwheelChild, rotatePinwheel;  // Pinwheel altýndaki Pinwheel objesi
 
     void Start()
     {
+        scrptObj = GameObject.FindWithTag("IMGTarget");
+
+        arSpwn = scrptObj.GetComponent<ARSpawnManager>();
+
         if (FirstTime)
         {
             FirstTime = false;
@@ -31,7 +38,7 @@ public class ButtonControl : MonoBehaviour
             rotatePinwheel = transform.Find("Pinwheel");
             if (rotatePinwheel != null)
             {
-                RotatePinwheel(Random.Range(0, 3) * 90);  // 0, 1, 2 => 0, 90, 180, 270 derece
+                RotatePinwheel(Random.Range(0, 3) * 45);  // 0, 1, 2 => 0, 90, 180, 270 derece
             }
         }
     }
@@ -41,11 +48,13 @@ public class ButtonControl : MonoBehaviour
         // Pinwheel'in parent'ýný döndür
         if (windmillID == 7)
         {
-            Debug.Log("ID 7 olan Pinwheel");
+
+            arSpwn.resultText.text = "Bu farklý olan deðil!";
         }
         else
         {
-            Debug.Log("ID 13 olan Pinwheel");
+
+            arSpwn.resultText.text = "Afferim! Doðru bildin!";
         }
     }
 
