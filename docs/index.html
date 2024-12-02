@@ -3,23 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <title>SkyVision AR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Quicksand', Arial, sans-serif;
+            background: linear-gradient(135deg, #e6f7ff, #e6fff7);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            padding: 0 20px;
+        }
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .text-content {
+            flex: 1;
+            text-align: left;
+            padding-right: 20px;
+        }
+        .image-content {
+            flex: 1;
+        }
+        .image-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-family: 'Quicksand', Arial, sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        .side-menu {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            background: linear-gradient(180deg, #4CAF50, #2196F3);
+            transition: width 0.3s ease;
+            overflow: hidden;
+            z-index: 999;
+            padding-top: 80px;
+        }
+        .side-menu:hover {
+            width: 200px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
             margin: 0;
-            background-color: #f0f0f0;
+        }
+        nav ul li {
+            padding: 15px 20px;
+            white-space: nowrap;
+        }
+        nav ul li a {
+            font-family: 'Quicksand', Arial, sans-serif;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+        }
+        nav ul li a i {
+            margin-right: 15px;
+            font-size: 20px;
+            width: 20px;
+            text-align: center;
+        }
+        nav ul li a span {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .side-menu:hover nav ul li a span {
+            opacity: 1;
+        }
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 100px auto 40px;
+            padding: 0 20px 0 80px;
+            text-align: center;
         }
         h1 {
+            color: #2196F3;
+            font-weight: 700;
+            font-size: 2.5em;
+        }
+        p {
+            color: #4CAF50;
+            max-width: 600px;
+            margin: 20px auto;
+            font-weight: 500;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .page-content {
+            display: none;
+        }
+        .page-content.active {
+            display: block;
+        }
+        .product-cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .product-card {
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .product-card h3 {
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+        .product-card p {
             color: #333;
+            font-size: 0.9em;
+        }
+        /* Farklı arka plan renkleri için */
+        .product-card:nth-child(1) {
+            background-color: #e6f7ff; /* Açık mavi */
+        }
+        .product-card:nth-child(2) {
+            background-color: #fff0f5; /* Açık pembe */
+        }
+        .product-card:nth-child(3) {
+            background-color: #f0fff0; /* Açık yeşil */
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <h1>Boş Bir Mal Özkan</h1>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">SkyVision AR</a>
+        </div>
+    </header>
+    <div class="side-menu">
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('home')"><i class="fas fa-home"></i><span>Anasayfa</span></a></li>
+                <li><a href="#" onclick="showPage('about')"><i class="fas fa-info-circle"></i><span>Hakkımızda</span></a></li>
+                <li><a href="#" onclick="showPage('products')"><i class="fas fa-box"></i><span>Ürünler</span></a></li>
+                <li><a href="#" onclick="showPage('contact')"><i class="fas fa-envelope"></i><span>İletişim</span></a></li>
+            </ul>
+        </nav>
+    </div>
+    <main>
+        <div id="home" class="page-content active">
+            <h1>SkyVision AR ile Eğlenceli Öğrenme</h1>
+            <div class="content">
+                <div class="text-content">
+                    <p>SkyVision AR, çocukların hem eğlenebileceği hem de öğrenebileceği interaktif bir oyun deneyimi sunar. Artırılmış gerçeklik teknolojisi sayesinde, çocuklar gökyüzünü keşfederken aynı zamanda bilgi edinirler.</p>
+                    <p>Bu eğitici oyunlar, çocukların merak duygusunu uyandırırken, uzay ve yıldızlar hakkında temel bilgiler edinmelerini sağlar. Eğlenceli ve sürükleyici bir deneyimle, çocuklar farkında olmadan öğrenme sürecine dahil olurlar.</p>
+                </div>
+                <div class="image-content">
+                    <img src="C:/Users/fatih/Downloads/image1_0.jpg" alt="SkyVision AR Oyun Görseli" width="400" height="300">
+                </div>
+            </div>
+        </div>
+        <div id="products" class="page-content">
+            <h1>Ürünlerimiz</h1>
+            <div class="product-cards">
+                <div class="product-card">
+                    <img src="C:/Users/fatih/Downloads/image0_0.jpg" alt="Uzay Keşfi AR">
+                    <h3>Uzay Keşfi AR</h3>
+                    <p>Güneş sistemi ve gezegenleri keşfedin. Artırılmış gerçeklik ile uzayı evinize getirin!</p>
+                </div>
+                <div class="product-card">
+                    <img src="C:/Users/fatih/Downloads/image0_0.jpg" alt="Yıldız Haritası AR">
+                    <h3>Yıldız Haritası AR</h3>
+                    <p>Takımyıldızları öğrenin ve kendi yıldız haritanızı oluşturun. Gökyüzü artık daha yakın!</p>
+                </div>
+                <div class="product-card">
+                    <img src="C:/Users/fatih/Downloads/image0_0.jpg" alt="Uzay Maceraları AR">
+                    <h3>Uzay Maceraları AR</h3>
+                    <p>Uzay istasyonlarını keşfedin ve astronotların günlük yaşamını deneyimleyin. Uzayda bir gün nasıl geçiyor?</p>
+                </div>
+            </div>
+        </div>
+        <div id="about" class="page-content">
+            <h1>Hakkımızda</h1>
+            <div class="content">
+                <p>SkyVision AR, eğitim ve eğlenceyi bir araya getiren yenilikçi bir şirkettir. Amacımız, çocukların öğrenme sürecini daha eğlenceli ve etkili hale getirmektir.</p>
+            </div>
+            <div class="image-content">
+                <img src="C:/Users/fatih/Downloads/image0_0.jpg" alt="SkyVision AR Oyun Görseli" width="400" height="300">
+            </div>
+        </div>
+        <div id="contact" class="page-content">
+            <h1>İletişim</h1>
+            <div class="content">
+                <div class="text-content">
+                    <p>Bize ulaşmak için:</p>
+                    <p style="margin-top: 20px;">Email: info@skyvisionar.com</p>
+                    <p style="margin-top: 20px;">Telefon: +90 123 456 7890</p>
+                    <p style="margin-top: 20px;">Adres: Teknoloji Vadisi, No: 123, 34000 İstanbul, Türkiye</p>
+                </div>
+                <div class="image-content">
+                    <img src="C:/Users/fatih/Downloads/image2_0.jpg" alt="SkyVision AR İletişim Görseli" width="400" height="300">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            // Tüm sayfa içeriklerini gizle
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Seçilen sayfayı göster
+            document.getElementById(pageId).classList.add('active');
+            console.log('Showing page:', pageId); // Hata ayıklama için log
+        }
+    
+        // Sayfa yüklendiğinde varsayılan olarak ana sayfayı göster
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+    </script>
 </body>
 </html>
