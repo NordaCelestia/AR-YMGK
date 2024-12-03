@@ -6,65 +6,72 @@ using TMPro;
 public class ButtonControl : MonoBehaviour
 {
     public int windmillID;  // Pinwheel ID
-    [SerializeField] Material DifferentMaterial;  // Farklý materyal
-    bool FirstTime = true;
+    [SerializeField] Material DifferentMaterial;  // Farklï¿½ materyal
+    
+    public bool FirstTime = true;
     [SerializeField] GameObject scrptObj;
     ARSpawnManager arSpwn;
 
-    private Transform pinwheelChild, rotatePinwheel;  // Pinwheel altýndaki Pinwheel objesi
+    private ARSpawnManager arSpawnManager;
+
+    
+
+    private Transform pinwheelChild, rotatePinwheel;  // Pinwheel altï¿½ndaki Pinwheel objesi
 
     void Start()
     {
         scrptObj = GameObject.FindWithTag("IMGTarget");
+        arSpawnManager = scrptObj.GetComponent<ARSpawnManager>();
+        SetupWindmill();
+    }
 
-        arSpwn = scrptObj.GetComponent<ARSpawnManager>();
+    public void SetupWindmill()
+    {
+        // Bu objenin altÄ±ndaki "Pinwheel" nesnesini bul
+        pinwheelChild = transform.Find("Pinwheel/Pinwheel");
 
-        if (FirstTime)
+        // EÄŸer Pinwheel nesnesi varsa, materyalini deÄŸiÅŸtir
+        if (pinwheelChild != null && windmillID == 13)
         {
-            FirstTime = false;
-            // Bu objenin altýndaki "Pinwheel" nesnesini bul
-            pinwheelChild = transform.Find("Pinwheel/Pinwheel");
-
-            // Eðer Pinwheel nesnesi varsa, materyalini deðiþtir
-            if (pinwheelChild != null && windmillID == 13)
+            Renderer renderer = pinwheelChild.GetComponent<Renderer>();
+            if (renderer != null)
             {
-                Renderer renderer = pinwheelChild.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    renderer.material = DifferentMaterial;  // Farklý materyali ata
-                }
+                renderer.material = DifferentMaterial;  // FarklÄ± materyali ata
             }
+        }
 
-            rotatePinwheel = transform.Find("Pinwheel");
-            if (rotatePinwheel != null)
-            {
-                RotatePinwheel(Random.Range(0, 3) * 45);  // 0, 1, 2 => 0, 90, 180, 270 derece
-            }
+        rotatePinwheel = transform.Find("Pinwheel");
+        if (rotatePinwheel != null)
+        {
+            RotatePinwheel(Random.Range(0, 4) * 90);  // 0, 90, 180, 270 derece
         }
     }
 
-    public void onClickControl()
+    public void OnButtonClick()
     {
-        // Pinwheel'in parent'ýný döndür
-        if (windmillID == 7)
-        {
+        // ... mevcut kodlar ...
 
-            arSpwn.resultText.text = "Bu farklý olan deðil!";
+        if (windmillID == 13)
+        {
+            // DoÄŸru cevap
+            arSpawnManager.resultText.text = "DoÄŸru!";
+            arSpawnManager.OnCorrectAnswer(); // Yeni eklenen Ã§aÄŸrÄ±
+           
         }
         else
         {
-
-            arSpwn.resultText.text = "Afferim! Doðru bildin!";
+            // YanlÄ±ÅŸ cevap
+            arSpawnManager.resultText.text = "YanlÄ±ÅŸ, tekrar deneyin.";
         }
     }
 
-    // Pinwheel'i Z ekseni etrafýnda döndürme fonksiyonu
+    // Pinwheel'i Z ekseni etrafï¿½nda dï¿½ndï¿½rme fonksiyonu
     private void RotatePinwheel(float angle)
     {
-        // Pinwheel objesini Z ekseni etrafýnda döndürüyoruz
+        // Pinwheel objesini Z ekseni etrafï¿½nda dï¿½ndï¿½rï¿½yoruz
         if (rotatePinwheel != null)
         {
-            rotatePinwheel.Rotate(Vector3.forward, angle);  // Z ekseni etrafýnda dönme iþlemi
+            rotatePinwheel.Rotate(Vector3.forward, angle);  // Z ekseni etrafï¿½nda dï¿½nme iï¿½lemi
         }
     }
 }

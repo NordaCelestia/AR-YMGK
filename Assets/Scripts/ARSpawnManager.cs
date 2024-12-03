@@ -2,19 +2,20 @@ using UnityEngine;
 using Vuforia;
 using System.Collections.Generic;
 using TMPro;
+using System.Collections;
 
 public class ARSpawnManager : MonoBehaviour
 {
     public GameObject spawnObjectPrefab; // Spawnlanacak obje
-    public Transform topLeft, topRight, bottomLeft, bottomRight; // 4 köþe
-    private List<GameObject> spawnedObjects = new List<GameObject>(); // Oluþturulan objeler için liste
+    public Transform topLeft, topRight, bottomLeft, bottomRight; // 4 kÃ¶ÅŸe
+    private List<GameObject> spawnedObjects = new List<GameObject>(); // OluÅŸturulan objeler iÃ§in liste
     bool isFirstTime = true;
-    [SerializeField] public TextMeshProUGUI resultText;
-    
+    [SerializeField] public TextMeshProUGUI resultText, pointText;
+    private int score = 0;
 
     private void Start()
     {
-        // Image Target algýlandýðýnda çalýþacak event'i ayarla
+        // Image Target algÄ±landÄ±ÄŸÄ±nda Ã§alÄ±ÅŸacak event'i ayarla
         var imageTarget = GetComponent<ImageTargetBehaviour>();
         if (imageTarget)
         {
@@ -27,38 +28,68 @@ public class ARSpawnManager : MonoBehaviour
         if (targetStatus.Status == Status.TRACKED && isFirstTime)
         {
             isFirstTime = false;
+            SpawnWindmills();
+        }
+    }
 
-            // Her spawn iþleminde farklý olacak bir indeksi rastgele seç
-            int differentIndex = Random.Range(0, 4);
+    public void SpawnWindmills()
+    {
+        // Ã–nceki rÃ¼zgar gÃ¼llerini temizle
+        ClearWindmills();
 
-            // Her köþede obje oluþtur ve listeye ekle
-            spawnedObjects.Add(Instantiate(spawnObjectPrefab, topLeft.position, Quaternion.identity, this.transform));
-            spawnedObjects.Add(Instantiate(spawnObjectPrefab, topRight.position, Quaternion.identity, this.transform));
-            spawnedObjects.Add(Instantiate(spawnObjectPrefab, bottomLeft.position, Quaternion.identity, this.transform));
-            spawnedObjects.Add(Instantiate(spawnObjectPrefab, bottomRight.position, Quaternion.identity, this.transform));
+        // Her spawn iÅŸleminde farklÄ± olacak bir indeksi rastgele seÃ§
+        int differentIndex = Random.Range(0, 4);
 
-            // Oluþturulan her objeye ID atama ve farklý olaný belirleme
-            for (int i = 0; i < spawnedObjects.Count; i++)
+        // Y ekseninde 180 derece dÃ¶ndÃ¼rÃ¼lmÃ¼ÅŸ rotasyon
+        Quaternion rotation = Quaternion.Euler(0, 180, 0);
+
+        // Her kÃ¶ÅŸede obje oluÅŸtur ve listeye ekle
+        spawnedObjects.Add(Instantiate(spawnObjectPrefab, topLeft.position, rotation, this.transform));
+        spawnedObjects.Add(Instantiate(spawnObjectPrefab, topRight.position, rotation, this.transform));
+        spawnedObjects.Add(Instantiate(spawnObjectPrefab, bottomLeft.position, rotation, this.transform));
+        spawnedObjects.Add(Instantiate(spawnObjectPrefab, bottomRight.position, rotation, this.transform));
+
+        // OluÅŸturulan her objeye ID atama ve farklÄ± olanÄ± belirleme
+        for (int i = 0; i < spawnedObjects.Count; i++)
+        {
+            var obj = spawnedObjects[i];
+
+            // Objenin ButtonControl scriptine sahip olup olmadÄ±ÄŸÄ±nÄ± kontrol et
+            var controller = obj.GetComponent<ButtonControl>();
+            if (controller != null)
             {
-                var obj = spawnedObjects[i];
-
-                // Objenin ButtonControl scriptine sahip olup olmadýðýný kontrol et
-                var controller = obj.GetComponent<ButtonControl>();
-                if (controller != null)
+                if (i == differentIndex)
                 {
-                    if (i == differentIndex)
-                    {
-                        controller.windmillID = 13; // Farklý olan obje için özel ID
-                    }
-                    else
-                    {
-                        controller.windmillID = 7; // Ayný olan objeler için ID
-                    }
+                    controller.windmillID = 13; // FarklÄ± olan obje iÃ§in Ã¶zel ID
                 }
-
-                // Objenin yönünü ayarla
-                obj.transform.Rotate(0, -180, 0);
+                else
+                {
+                    controller.windmillID = 7; // AynÄ± olan objeler iÃ§in ID
+                }
+                controller.SetupWindmill(); // Yeni eklenen metod
             }
         }
+    }
+
+    private void ClearWindmills()
+    {
+        foreach (var obj in spawnedObjects)
+        {
+            Destroy(obj);
+        }
+        spawnedObjects.Clear();
+    }
+
+    public void OnCorrectAnswer()
+    {
+        score += 100;
+        pointText.text = "Puan: " + score.ToString();
+        StartCoroutine(RespawnAfterDelay());
+    }
+
+    private IEnumerator RespawnAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        SpawnWindmills();
     }
 }
