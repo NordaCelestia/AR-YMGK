@@ -738,9 +738,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windmillID: 0
   DifferentMaterial: {fileID: 0}
-  pointText: {fileID: 1255134625}
   FirstTime: 1
   scrptObj: {fileID: 0}
+  audioSource: {fileID: 0}
+  correctSound: {fileID: 0}
+  incorrectSound: {fileID: 0}
 --- !u!4 &834745242
 Transform:
   m_ObjectHideFlags: 0
@@ -800,7 +802,7 @@ GameObject:
   - component: {fileID: 1255134625}
   m_Layer: 5
   m_Name: PointText
-  m_TagString: Untagged
+  m_TagString: PointText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1097,6 +1099,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: IMGTarget
       objectReference: {fileID: 0}
+    - target: {fileID: 4655192287191259689, guid: 7418ac24abfb0de41bd16261d1a49b94, type: 3}
+      propertyPath: pointText
+      value: 
+      objectReference: {fileID: 1255134625}
     - target: {fileID: 4655192287191259689, guid: 7418ac24abfb0de41bd16261d1a49b94, type: 3}
       propertyPath: resultText
       value: 

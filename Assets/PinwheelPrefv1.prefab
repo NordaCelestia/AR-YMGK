@@ -49,7 +49,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windmillID: 0
   DifferentMaterial: {fileID: 2100000, guid: d40fef40b9f8c6440a211f63d0ad3844, type: 2}
+  FirstTime: 1
   scrptObj: {fileID: 4005099349210086065, guid: 7418ac24abfb0de41bd16261d1a49b94, type: 3}
+  audioSource: {fileID: 0}
+  correctSound: {fileID: 8300000, guid: bd78abb47dbe87b4bb753177be6340d7, type: 3}
+  incorrectSound: {fileID: 8300000, guid: f0e45c38a6a545a4e940aa902d4ca53c, type: 3}
 --- !u!1 &4610004946294013734
 GameObject:
   m_ObjectHideFlags: 0

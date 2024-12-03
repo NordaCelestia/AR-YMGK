@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - IMGTarget
+  - PointText
   layers:
   - Default
   - TransparentFX

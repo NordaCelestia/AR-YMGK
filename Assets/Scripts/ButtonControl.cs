@@ -7,19 +7,27 @@ public class ButtonControl : MonoBehaviour
 {
     public int windmillID;  // Pinwheel ID
     [SerializeField] Material DifferentMaterial;  // Farkl� materyal
-    
+
     public bool FirstTime = true;
     [SerializeField] GameObject scrptObj;
     ARSpawnManager arSpwn;
 
     private ARSpawnManager arSpawnManager;
 
-    
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip correctSound;
+    [SerializeField] private AudioClip incorrectSound;
+
+
 
     private Transform pinwheelChild, rotatePinwheel;  // Pinwheel alt�ndaki Pinwheel objesi
 
     void Start()
     {
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
         scrptObj = GameObject.FindWithTag("IMGTarget");
         arSpawnManager = scrptObj.GetComponent<ARSpawnManager>();
         SetupWindmill();
@@ -53,13 +61,22 @@ public class ButtonControl : MonoBehaviour
 
         if (windmillID == 13)
         {
+            if (audioSource != null && correctSound != null)
+            {
+                audioSource.PlayOneShot(correctSound);
+            }
             // Doğru cevap
             arSpawnManager.resultText.text = "Doğru!";
             arSpawnManager.OnCorrectAnswer(); // Yeni eklenen çağrı
-           
+
+
         }
         else
         {
+            if (audioSource != null && correctSound != null)
+            {
+                audioSource.PlayOneShot(incorrectSound);
+            }
             // Yanlış cevap
             arSpawnManager.resultText.text = "Yanlış, tekrar deneyin.";
         }
