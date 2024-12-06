@@ -13,7 +13,7 @@ Hakkında
 Bu proje, havacılık sektörüne yenilikçi eğlence çözümleri sunmak için yapılan yaratıcı bir girişimin parçasıdır. Güncellemeler ve heyecan verici gelişmeler için takipte kalın!
 
 Ek Bilgiler:
-Detaylı Proje Dosyası: - 📋 **[Drive]([https://trello.com/b/FVlkCX0K/ar-proje](https://drive.google.com/drive/folders/1YOi4LWMRUELKfrQ5Xus4vvsBmPejlv0v?usp=sharing))**  
+Detaylı Proje Dosyası: - 📋 **[Drive](https://drive.google.com/drive/folders/1YOi4LWMRUELKfrQ5Xus4vvsBmPejlv0v?usp=sharing)**  
 Bu linkte proje tanıtım videosu, dokümanlar, Smart SWOT analizi ve THS belgesi yer almaktadır.
 
 ---------------------------------------------------------------
@@ -32,5 +32,5 @@ About
 This project is part of a creative initiative aimed at introducing innovative entertainment solutions to the aviation industry. Stay tuned for updates and exciting developments!
 
 Additional Information:
-Detailed Project File: - 📋 **[Drive]([https://trello.com/b/FVlkCX0K/ar-proje](https://drive.google.com/drive/folders/1YOi4LWMRUELKfrQ5Xus4vvsBmPejlv0v?usp=sharing))**  
+Detailed Project File: - 📋 **[Drive](https://drive.google.com/drive/folders/1YOi4LWMRUELKfrQ5Xus4vvsBmPejlv0v?usp=sharing)**  
 This link contains the project introduction video, documents, Smart SWOT analysis, and the THS certificate.
