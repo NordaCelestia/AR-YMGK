@@ -1,3 +1,5 @@
+ÖNEMLİ NOT(FİNAL İÇİN): Drive içerisinde Tutorial adlı video websitesine eklenen yenilikler ve apk'yı nasıl indirileceği konusunda bilgilendirme videosudur ve yeni eklenmiştir. Ayrıca Oyun tanıtımı isimli videoda mobil cihazda nasıl çalıştığını göstermektedir.
+
 Türkçe:
 AR Uçuş İçi Eğlence Oyunu 🎮✈️
 Bu proje, yolcuların uçuş sırasında eğlenmesini sağlamak için tasarlanmış bir Artırılmış Gerçeklik (AR) oyunudur. Oyun, Vuforia ve Unity Engine kullanılarak geliştirilmiştir ve etkileşimli bir oyun deneyimi sunarak kullanıcıları eğlendirmeyi amaçlamaktadır.
